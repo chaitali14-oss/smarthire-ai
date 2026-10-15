@@ -1,3 +1,4 @@
 
 # Day 1: No third-party packages required yet.
 # Dependencies will be added as project features are implemented.
+PyMuPDF==1.28.2

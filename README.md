@@ -53,3 +53,33 @@ personal information to this public repository.
 
 This is an educational portfolio project. Similarity scores are not
 probabilities of being hired.
+
+
+
+## Current Features
+
+- Extract text from PDF resumes using PyMuPDF.
+- Process text across multiple PDF pages.
+- Handle missing files and invalid file types.
+- Detect PDFs with no extractable text.
+- Automated unit tests for resume parsing and error handling.
+
+## Installation
+
+1. Clone this repository.
+2. Create and activate a Python virtual environment.
+3. Install dependencies:
+
+   ```bash
+   python -m pip install -r requirements.txt
+   ```
+
+## Run Tests
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+## Current Status
+
+Day 2: PDF resume text extraction implemented and tested.

@@ -18,3 +18,7 @@ data/private/
 # Operating system files
 .DS_Store
 Thumbs.db
+
+
+# Generated sample and resume data
+data/*.pdf
