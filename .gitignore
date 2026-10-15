@@ -22,3 +22,8 @@ Thumbs.db
 
 # Generated sample and resume data
 data/*.pdf
+
+# Local SQLite databases
+data/*.db
+data/*.sqlite
+data/*.sqlite3
