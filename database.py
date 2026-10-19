@@ -2,9 +2,17 @@
 import sqlite3
 from pathlib import Path
 import json
+from contextlib import closing, contextmanager
 
 
 DEFAULT_DB_PATH = Path(__file__).parent / "data" / "smarthire.db"
+
+@contextmanager
+def database_connection(db_path):
+    """Manage a SQLite transaction and always close its connection."""
+    with closing(sqlite3.connect(db_path)) as connection:
+        with connection:
+            yield connection
 
 
 def initialize_database(db_path=DEFAULT_DB_PATH):
@@ -12,7 +20,7 @@ def initialize_database(db_path=DEFAULT_DB_PATH):
     db_path = Path(db_path)
     db_path.parent.mkdir(parents=True, exist_ok=True)
 
-    with sqlite3.connect(db_path) as connection:
+    with database_connection(db_path) as connection:
         connection.execute(
             """
             CREATE TABLE IF NOT EXISTS resumes (
@@ -48,7 +56,7 @@ def insert_resume(filename, cleaned_text, db_path=DEFAULT_DB_PATH):
 
     initialize_database(db_path)
 
-    with sqlite3.connect(db_path) as connection:
+    with database_connection(db_path) as connection:
         cursor = connection.execute(
             """
             INSERT INTO resumes (filename, cleaned_text)
@@ -63,7 +71,7 @@ def get_resume(resume_id, db_path=DEFAULT_DB_PATH):
     """Retrieve one resume by ID, or return None if it does not exist."""
     initialize_database(db_path)
 
-    with sqlite3.connect(db_path) as connection:
+    with database_connection(db_path) as connection:
         connection.row_factory = sqlite3.Row
         row = connection.execute(
             """
@@ -96,7 +104,7 @@ def save_candidate_profile(resume_id, profile, db_path=DEFAULT_DB_PATH):
 
     initialize_database(db_path)
 
-    with sqlite3.connect(db_path) as connection:
+    with database_connection(db_path) as connection:
         connection.execute(
             """
             INSERT INTO candidate_profiles (
@@ -123,7 +131,7 @@ def get_candidate_profile(resume_id, db_path=DEFAULT_DB_PATH):
     """Retrieve a structured candidate profile, or None if missing."""
     initialize_database(db_path)
 
-    with sqlite3.connect(db_path) as connection:
+    with database_connection(db_path) as connection:
         connection.row_factory = sqlite3.Row
         row = connection.execute(
             """
