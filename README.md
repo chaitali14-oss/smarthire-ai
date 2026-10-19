@@ -99,60 +99,14 @@ This is an educational portfolio project. Resume similarity scores are not proba
 
 ## Project Progress
 
-### Day 1: Project Setup and Initial Testing
-- Created the SmartHire AI project structure.
-- Set up the Python environment and project dependencies.
-- Created the initial application entry point (`app.py`).
-- Added `README.md`, `requirements.txt`, and `.gitignore`.
-- Created initial unit tests and verified the project setup.
+## Development Progress
 
-### Day 2: PDF Resume Text Extraction
-- Implemented PDF text extraction using PyMuPDF.
-- Created `resume_parser.py` to extract text from resume PDFs.
-- Added handling for missing files, invalid file types, and PDFs without extractable text.
-- Tested resume parsing functionality.
+- **Day 1:** Project structure, Python environment, and initial tests.
+- **Day 2:** PDF resume text extraction using PyMuPDF.
+- **Day 3:** Text cleaning, SQLite storage, and integrated resume processing.
+- **Day 4:** Structured resume information extraction, including skills, education, emails, and phone numbers.
+- **Day 5:** Add the verified milestone once confirmed.
+- **Day 6:** Resume-to-job skill matching with matched skills, missing skills, and an explainable overlap score.
+- **Day 7:** SQLite-integrated saved-resume matching service with input validation and automated tests.
 
-### Day 3: Resume Text Cleaning and SQLite Storage
-- Implemented resume text cleaning and normalization.
-- Created `text_cleaner.py` to normalize whitespace and remove unwanted control characters.
-- Implemented SQLite database operations in `database.py`.
-- Created `resume_service.py` to integrate resume processing, cleaning, and storage.
-- Added automated tests for text cleaning, database operations, and resume processing.
-
-### Day 4: Structured Resume Information Extraction
-- Created `resume_extractor.py`.
-- Implemented extraction of email addresses and phone numbers.
-- Added technical skill and education extraction.
-- Tested the resume information extraction functionality.
-
-### Day 5: [Confirm the completed milestone]
-- Update this section with the exact feature implemented and tested on Day 5.
-
-### Day 6: Resume-to-Job Skill Matching
-- Created `job_matcher.py` to compare resume skills against job requirements.
-- Implemented matched-skill and missing-skill identification.
-- Added a skill-overlap match score.
-- Tested full matches, partial matches, case-insensitive matching, invalid inputs, and job descriptions without recognized skills.
-
-### Day 7: Saved Resume–Job Matching Service
-- Created `job_match_service.py` to match a saved resume against a job description.
-- Integrated SQLite resume retrieval with the skill-matching functionality.
-- Returned the resume ID, filename, match score, matched skills, and missing skills.
-- Added input validation and handling for missing resume records.
-- Added automated tests for the service.
-- Verified that all 19 project tests passed.
-
-### Current Project Status
-- PDF resume parsing, text cleaning, and SQLite storage implemented.
-- Structured resume information extraction implemented.
-- Resume-to-job skill matching implemented.
-- Saved-resume matching service integrated and tested.
-- **Latest verified test result: 19 tests passed.**
-
-### Upcoming Milestones
-- Day 8: Build the FastAPI backend and expose resume-matching functionality through REST endpoints.
-- Upcoming: Add machine learning-based job-category classification.
-- Upcoming: Integrate LLM-powered career recommendations and Retrieval-Augmented Generation (RAG).
-- Upcoming: Develop a Streamlit dashboard.
-- Upcoming: Add broader integration tests and deployment support.
-
+**Testing:** 19 tests passed in the latest verified full test run.
