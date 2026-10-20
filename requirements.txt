@@ -1,4 +1,9 @@
 
-# Day 1: No third-party packages required yet.
-# Dependencies will be added as project features are implemented.
+# PDF resume parsing
 PyMuPDF==1.28.2
+
+# Day 8: FastAPI backend
+fastapi==0.155.0
+uvicorn[standard]==0.54.0
+python-multipart
+
