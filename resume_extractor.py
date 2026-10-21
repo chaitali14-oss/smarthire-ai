@@ -51,10 +51,16 @@ TECHNICAL_SKILLS = [
 
 
 
+
 def extract_technical_skills(text: str) -> list[str]:
     """Extract recognized technical skills without overlapping matches."""
     if not isinstance(text, str):
         raise TypeError("Resume text must be a string.")
+
+    # Map alternative skill names to canonical skill names.
+    skill_aliases = {
+        "JS": "JavaScript",
+    }
 
     found_skills = set()
     matched_spans = []
@@ -79,9 +85,24 @@ def extract_technical_skills(text: str) -> list[str]:
 
             if not overlaps:
                 matched_spans.append((start, end))
-                found_skills.add(skill)
+                canonical_skill = skill_aliases.get(skill, skill)
+                found_skills.add(canonical_skill)
 
-    # Return results in the original skill-list order.
+    # Recognize aliases and return skills in the original skill-list order.
+    alias_pattern = r"(?<!\w)JS(?!\w)"
+
+    for match in re.finditer(alias_pattern, text, re.IGNORECASE):
+        start, end = match.span()
+
+        overlaps = any(
+            start < existing_end and end > existing_start
+            for existing_start, existing_end in matched_spans
+        )
+
+        if not overlaps:
+            matched_spans.append((start, end))
+            found_skills.add("JavaScript")
+
     return [
         skill
         for skill in TECHNICAL_SKILLS

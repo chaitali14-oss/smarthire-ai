@@ -104,3 +104,9 @@ def test_education_extraction_handles_missing_and_invalid_input():
 
     with pytest.raises(TypeError, match="Resume text must be a string."):
         extract_education(None)
+
+
+def test_extracts_javascript_from_js_alias():
+    assert extract_technical_skills("Experience with JS") == [
+        "JavaScript",
+    ]
