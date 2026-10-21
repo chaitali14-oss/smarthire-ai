@@ -52,6 +52,19 @@ class TestJobMatcher(unittest.TestCase):
 
         self.assertEqual(result["match_score"], 100.0)
 
+    def test_javascript_alias_matches_canonical_skill(self):
+        result = match_resume_to_job(
+            "Python JS",
+            "Python JavaScript",
+        )
+
+        self.assertEqual(result["match_score"], 100.0)
+        self.assertEqual(
+            result["matched_skills"],
+            ["Python", "JavaScript"],
+        )
+        self.assertEqual(result["missing_skills"], [])
+
     def test_job_without_recognized_skills(self):
         result = match_resume_to_job(
             "Python Java",
