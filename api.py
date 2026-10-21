@@ -7,11 +7,19 @@ from fastapi import FastAPI, File, HTTPException, UploadFile
 from resume_parser import extract_text_from_pdf
 from resume_service import process_resume_with_profile
 
+from pydantic import BaseModel, Field
+from job_match_service import match_saved_resume_to_job
+
+
 app = FastAPI(
     title="SmartHire AI API",
     description="API for resume screening and job matching.",
     version="1.0.0",
 )
+
+class JobMatchRequest(BaseModel):
+    resume_id: int = Field(gt=0)
+    job_description: str = Field(min_length=1)
 
 
 @app.get("/")
@@ -71,3 +79,34 @@ def upload_resume(file: UploadFile = File(...)):
 
         if temp_path is not None:
             temp_path.unlink(missing_ok=True)
+
+
+@app.post("/match-job")
+def match_job(request: JobMatchRequest):
+    """Match a saved resume against a job description."""
+
+    if not request.job_description.strip():
+        raise HTTPException(
+            status_code=422,
+            detail="Job description cannot be empty.",
+        )
+
+    try:
+        return match_saved_resume_to_job(
+            resume_id=request.resume_id,
+            job_description=request.job_description,
+        )
+
+    except ValueError as exc:
+        message = str(exc)
+
+        if message.startswith("No resume found with ID"):
+            raise HTTPException(
+                status_code=404,
+                detail=message,
+            ) from exc
+
+        raise HTTPException(
+            status_code=400,
+            detail=message,
+        ) from exc
